@@ -9,7 +9,7 @@ $password = $argv[2] ?? '';
 $name = $argv[3] ?? 'Administrador';
 $email = $argv[4] ?? '';
 if (!preg_match('/^[A-Za-z0-9._-]{3,60}$/',$login) || strlen($password)<12 || !filter_var($email,FILTER_VALIDATE_EMAIL)) {
-    fwrite(STDERR,"Uso: bin/create_admin.php LOGIN SENHA EMAIL [NOME]\nSenha mínima: 12 caracteres.\n"); exit(2);
+    fwrite(STDERR,"Uso: bin/create_admin.php LOGIN SENHA NOME EMAIL\nSenha mínima: 12 caracteres.\n"); exit(2);
 }
 $stmt=$conn->prepare('SELECT id_administrador FROM admin WHERE login=:login LIMIT 1');$stmt->execute([':login'=>$login]);
 if($stmt->fetch()){fwrite(STDERR,"Login já existe.\n");exit(3);}

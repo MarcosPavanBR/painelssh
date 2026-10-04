@@ -55,3 +55,13 @@ A validação completa ainda depende de Composer, MariaDB/pdo_mysql e um ambient
 3. Gerar e revisar `composer.lock` no ambiente de build.
 4. Executar testes end-to-end de autorização, SQLi, CSRF, uploads e fluxos SSH.
 5. Reexecutar a auditoria e só então avaliar a liberação para produção.
+
+## Instalação automatizada
+
+A instalação automatizada foi escrita para Ubuntu 24.04 e não deve ser tratada como garantia de produção. Ela pede confirmação, não remove uma instalação existente, instala Apache/PHP/MariaDB, cria um banco e usuário com privilégios limitados, importa o SQL seguro e cria o primeiro administrador.
+
+```bash
+git clone https://github.com/MarcosPavanBR/painelssh.git && cd painelssh && sudo bash ops/install.sh
+```
+
+O comando exige acesso de leitura ao repositório. Antes de expor o painel, configure HTTPS, altere `FORCE_SECURE_COOKIES` para `1` e valide os fluxos em staging. O módulo `gestorssh/appss/` permanece legado/ofuscado e não deve ser considerado modernizado apenas por executar o instalador.

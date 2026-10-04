@@ -77,7 +77,7 @@ Se a instalação for controlada por CI/CD, gere e versione `composer.lock` ante
 Depois que o banco e o ambiente estiverem acessíveis:
 
 ```bash
-php bin/create_admin.php LOGIN 'UMA-SENHA-FORTE-COM-PELO-MENOS-12-CARACTERES' email@dominio.example 'Administrador'
+php bin/create_admin.php LOGIN 'UMA-SENHA-FORTE-COM-PELO-MENOS-12-CARACTERES' 'Administrador' email@dominio.example
 ```
 
 A senha é armazenada com `password_hash()`.
