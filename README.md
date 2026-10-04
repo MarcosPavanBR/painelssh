@@ -6,7 +6,7 @@ Painel web para gerenciamento de usuários, servidores, payloads, portas, aplica
 
 **Staging / desenvolvimento — ainda não liberado para produção.**
 
-As correções de roteamento por allowlist, hash de senhas, migração de MD5 legado, regeneração de sessão, CSRF e proteção de segredos SSH estão presentes e foram verificadas estaticamente. A auditoria ainda identifica consultas SQL legadas com interpolação e o módulo `gestorssh/appss/` permanece ofuscado; esses pontos precisam ser tratados antes de declarar ausência de SQL Injection ou prontidão para produção.
+As correções de roteamento por allowlist, hash de senhas, migração de MD5 legado, regeneração de sessão, CSRF e proteção de segredos SSH estão presentes e foram verificadas estaticamente. As consultas SQL interpoladas identificadas nos endpoints Conecta4G foram migradas para prepared statements e validadas por lint/testes estáticos. O módulo `gestorssh/appss/` permanece ofuscado; ele precisa de uma conversão sintática controlada e testes funcionais antes de ser considerado modernizado.
 
 Consulte:
 
@@ -51,8 +51,7 @@ A validação completa ainda depende de Composer, MariaDB/pdo_mysql e um ambient
 
 ## Próximos passos de modernização
 
-1. Migrar as consultas dinâmicas restantes para prepared statements parametrizados.
-2. Tornar `gestorssh/appss/` legível e versionável após testes funcionais.
+1. Tornar `gestorssh/appss/` legível e versionável por conversão sintática controlada, após testes funcionais.
 3. Gerar e revisar `composer.lock` no ambiente de build.
 4. Executar testes end-to-end de autorização, SQLi, CSRF, uploads e fluxos SSH.
 5. Reexecutar a auditoria e só então avaliar a liberação para produção.

@@ -13,7 +13,7 @@
 
 ## Limitação importante
 
-A auditoria estática ainda encontra SQL dinâmico legado em módulos antigos, especialmente `conecta4g/` e páginas administrativas históricas. Esses pontos permanecem listados como dívida de segurança e não permitem declarar o pacote como livre de SQL Injection.
+As consultas SQL interpoladas identificadas nos endpoints Conecta4G foram migradas para prepared statements parametrizados. A revisão ainda deve ser repetida em staging com MariaDB. O módulo `appss/` continua ofuscado e precisa de conversão sintática controlada; isso é dívida de manutenção e impede declarar o pacote pronto para produção.
 
 ## Validação
 

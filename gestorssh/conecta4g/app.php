@@ -53,7 +53,7 @@ $uid = getIdBySid($sid); ?>
                     <select class="form-select" id="editar_servidor" name="editar_servidor">
                         <option value="">Selecione</option>
                         <?php
-                        $sql = $conn->query("SELECT * FROM servidores WHERE id_owner='$uid'");
+                        $sql = db_query($conn, 'SELECT * FROM servidores WHERE id_owner=:uid', [':uid' => $uid]);
                         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) :
                             echo "<option value='" . $row['id'] . "'>" . $row['Name'] . "</option>";
                         endwhile;
@@ -70,7 +70,7 @@ $uid = getIdBySid($sid); ?>
                     <select id="editar_payload" class="form-select" name="editar_payload">
                         <option value="">Selecione</option>
                         <?php
-                        $sql = $conn->query("SELECT * FROM payloads WHERE id_owner='$uid'");
+                        $sql = db_query($conn, 'SELECT * FROM payloads WHERE id_owner=:uid', [':uid' => $uid]);
                         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) :
                             echo "<option value='" . $row['id'] . "'>" . $row['Name'] . "</option>";
                         endwhile;
@@ -88,7 +88,7 @@ $uid = getIdBySid($sid); ?>
                     <select class="form-select" id="editar_porta" name="editar_porta">
                         <option value="">Selecione</option>
                         <?php
-                        $sql = $conn->query("SELECT * FROM portas WHERE id_owner='$uid'");
+                        $sql = db_query($conn, 'SELECT * FROM portas WHERE id_owner=:uid', [':uid' => $uid]);
                         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) :
                             echo "<option value='" . $row['id'] . "'>" . $row['Porta'] . "</option>";
                         endwhile;
@@ -118,21 +118,21 @@ if (isset($_POST['btn_salvar'])) :
     $payloads = array();
     $portas = array();
 
-    $sql = $conn->query("SELECT Name, TYPE, FLAG, ServerIP, CheckUser, ServerPort, SSLPort, USER, PASS FROM servidores  WHERE id_owner='$uid'");
+    $sql = db_query($conn, 'SELECT Name, TYPE, FLAG, ServerIP, CheckUser, ServerPort, SSLPort, USER, PASS FROM servidores  WHERE id_owner=:uid', [':uid' => $uid]);
 
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
 
         $servidores[] = $row;
     }
 
-    $sql = $conn->query("SELECT Name, FLAG, Payload, SNI, TlsIP, ProxyIP, ProxyPort, Info FROM payloads  WHERE id_owner='$uid'");
+    $sql = db_query($conn, 'SELECT Name, FLAG, Payload, SNI, TlsIP, ProxyIP, ProxyPort, Info FROM payloads  WHERE id_owner=:uid', [':uid' => $uid]);
 
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
 
         $payloads[] = $row;
     }
 
-    $sql = $conn->query("SELECT Porta FROM portas WHERE id_owner='$uid'");
+    $sql = db_query($conn, 'SELECT Porta FROM portas WHERE id_owner=:uid', [':uid' => $uid]);
 
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
 

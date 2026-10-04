@@ -33,7 +33,7 @@ endif;
             </thead>
             <tbody>
                 <?php
-                $sql = $conn->query("SELECT * FROM usuarios");
+                $sql = db_query($conn, 'SELECT * FROM usuarios');
                 while ($row = $sql->fetch(PDO::FETCH_ASSOC)) : ?>
                     <tr>
                         <td><a href="#" class="d-flex align-items-center">
@@ -144,7 +144,7 @@ endif;
 
     <?php
     if (isset($_POST['btn_editar'])) :
-        $sql = $conn->query("SELECT * FROM usuarios WHERE id='" . $_POST['id'] . "'");
+        $sql = db_query($conn, 'SELECT * FROM usuarios WHERE id=:id', [':id'=>(int)$_POST['id']]);
         $dados = $sql->fetch(PDO::FETCH_ASSOC); ?>
         <!------------------------------------------------------------------------------------>
         <!-- MODAL EDITAR USUÁRIO -->

@@ -2,6 +2,12 @@
 declare(strict_types=1);
 require_once __DIR__ . '/config.php';
 
+function db_query(PDO $conn, string $sql, array $params = []): PDOStatement {
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($params);
+    return $stmt;
+}
+
 function isUser($uid): bool {
     global $conn;
     $stmt = $conn->prepare('SELECT 1 FROM usuarios WHERE id = :id LIMIT 1');

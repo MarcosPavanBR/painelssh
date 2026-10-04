@@ -15,7 +15,7 @@ if ($acao == "servidor") :
         $serverport = $_POST['serverport'];
         $sslport = $_POST['sslport'];
 
-        $sql = $conn->query("SELECT * FROM servidores WHERE Name='$nome' AND id_owner='$id_owner'")->rowCount();
+        $sql = db_query($conn, 'SELECT * FROM servidores WHERE Name=:nome AND id_owner=:id_owner', [':nome' => $nome, ':id_owner' => $id_owner])->rowCount();
 
         if ($sql > 0) :
             echo "<script>
@@ -30,8 +30,8 @@ if ($acao == "servidor") :
 
         else :
 
-            $sql = $conn->prepare("INSERT INTO servidores SET id_owner='$id_owner', Name='$nome', TYPE='$tipo', FLAG='$flag', ServerIP='$serverip', CheckUser='$checkuser', ServerPort='$serverport', SSLPort='$sslport', USER='', PASS=''");
-            $sql->execute();
+            $sql = $conn->prepare("INSERT INTO servidores SET id_owner=:owner, Name=:name, TYPE=:type, FLAG=:flag, ServerIP=:serverip, CheckUser=:checkuser, ServerPort=:serverport, SSLPort=:sslport, USER='', PASS=''");
+            $sql->execute([':owner'=>$id_owner, ':name'=>$nome, ':type'=>$tipo, ':flag'=>$flag, ':serverip'=>$serverip, ':checkuser'=>$checkuser, ':serverport'=>$serverport, ':sslport'=>$sslport]);
 
             echo "<script>
             alert('Servidor adicionado com sucesso !');
@@ -58,7 +58,7 @@ elseif ($acao == "payload") :
         $proxyport = $_POST['proxyport'];
         $info = $_POST['info'];
 
-        $sql = $conn->query("SELECT * FROM payloads WHERE Name='$nome' AND id_owner='$id_owner'")->rowCount();
+        $sql = db_query($conn, 'SELECT * FROM payloads WHERE Name=:nome AND id_owner=:id_owner', [':nome' => $nome, ':id_owner' => $id_owner])->rowCount();
 
         if ($sql > 0) :
             echo "<script>
@@ -72,8 +72,8 @@ elseif ($acao == "payload") :
             </script>";
         else :
 
-            $sql = $conn->prepare("INSERT INTO payloads SET id_owner='$id_owner', Name='$nome', FLAG='$flag', Payload='$payload', SNI='$sni', TlsIP='$tlsip', ProxyIP='$proxyip', ProxyPort='$proxyport', Info='$info'");
-            $sql->execute();
+            $sql = $conn->prepare("INSERT INTO payloads SET id_owner=:owner, Name=:name, FLAG=:flag, Payload=:payload, SNI=:sni, TlsIP=:tlsip, ProxyIP=:proxyip, ProxyPort=:proxyport, Info=:info");
+            $sql->execute([':owner'=>$id_owner, ':name'=>$nome, ':flag'=>$flag, ':payload'=>$payload, ':sni'=>$sni, ':tlsip'=>$tlsip, ':proxyip'=>$proxyip, ':proxyport'=>$proxyport, ':info'=>$info]);
 
             echo "<script>
             alert('Payload adicionada com sucesso !');
@@ -93,7 +93,7 @@ elseif ($acao == "porta") :
         $id_owner = $_POST['id_owner'];
         $porta = $_POST['porta'];
 
-        $sql = $conn->query("SELECT * FROM portas WHERE Porta='$porta' AND id_owner='$id_owner'")->rowCount();
+        $sql = db_query($conn, 'SELECT * FROM portas WHERE Porta=:porta AND id_owner=:id_owner', [':porta' => $porta, ':id_owner' => $id_owner])->rowCount();
 
         if ($sql > 0) :
             echo "<script>
@@ -107,8 +107,8 @@ elseif ($acao == "porta") :
             </script>";
         else :
 
-            $sql = $conn->prepare("INSERT INTO portas SET id_owner='$id_owner', Porta='$porta'");
-            $sql->execute();
+            $sql = $conn->prepare("INSERT INTO portas SET id_owner=:owner, Porta=:porta");
+            $sql->execute([':owner'=>$id_owner, ':porta'=>$porta]);
 
             echo "<script>
             alert('Porta adicionada com sucesso !');
@@ -159,7 +159,7 @@ elseif ($acao == "porta") :
                     $proxyip = $obj[$i]['ProxyIP'];
                     $proxyport = $obj[$i]['ProxyPort'];
                     $info = $obj[$i]['Info'];
-                    $conn->query("INSERT INTO payloads SET id_owner='$id_owner', Name='$nome', FLAG='$flag', Payload='$payload', SNI='$sni', TlsIP='$tlsip', ProxyIP='$proxyip', ProxyPort='$proxyport', Info='$info'");
+                    db_query($conn, 'INSERT INTO payloads SET id_owner=:id_owner, Name=:nome, FLAG=:flag, Payload=:payload, SNI=:sni, TlsIP=:tlsip, ProxyIP=:proxyip, ProxyPort=:proxyport, Info=:info', [':id_owner' => $id_owner, ':nome' => $nome, ':flag' => $flag, ':payload' => $payload, ':sni' => $sni, ':tlsip' => $tlsip, ':proxyip' => $proxyip, ':proxyport' => $proxyport, ':info' => $info]);
                 }
     
                 echo "<script>
@@ -190,7 +190,7 @@ elseif ($acao == "usuario") :
             $pasta = $login;
         endif;
 
-        $sql = $conn->query("SELECT * FROM usuarios WHERE login='$login'");
+        $sql = db_query($conn, 'SELECT * FROM usuarios WHERE login=:login', [':login' => $login]);
 
         if ($sql->rowCount() > 0) :
             echo "<script>
@@ -198,8 +198,8 @@ elseif ($acao == "usuario") :
             window.location='" . getConfig('link') . "/conecta4g/adicionar.php';
             </script>";
         else :
-            $senha = md5($senha);
-            $sql = $conn->query("INSERT INTO usuarios SET nome='$nome', login='$login', senha='$senha', pasta_att='$pasta'");
+            $senha = password_hash($senha, PASSWORD_DEFAULT);
+            $sql = db_query($conn, 'INSERT INTO usuarios SET nome=:nome, login=:login, senha=:senha, pasta_att=:pasta', [':nome' => $nome, ':login' => $login, ':senha' => $senha, ':pasta' => $pasta]);
 
             if ($sql) :
                 echo "<script>

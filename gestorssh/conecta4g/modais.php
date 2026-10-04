@@ -209,7 +209,7 @@ if (isset($_POST['editar_servidor'])) : ?>
                 <div class="modal-body">
                     <?php
                     $id_servidor = $_POST['editar_servidor'];
-                    $sql = $conn->query("SELECT * FROM servidores WHERE id='$id_servidor'");
+                    $sql = db_query($conn, 'SELECT * FROM servidores WHERE id=:id_servidor', [':id_servidor' => $id_servidor]);
                     $dados = $sql->fetch(PDO::FETCH_ASSOC);  ?>
 
                     <form action="editar.php?acao=servidor" method="post">
@@ -304,7 +304,7 @@ if (isset($_POST['editar_payload'])) : ?>
 
                     <?php
                     $id_payload = $_POST['editar_payload'];
-                    $sql = $conn->query("SELECT * FROM payloads WHERE id='$id_payload'");
+                    $sql = db_query($conn, 'SELECT * FROM payloads WHERE id=:id_payload', [':id_payload' => $id_payload]);
                     $dados = $sql->fetch(PDO::FETCH_ASSOC);  ?>
                     <form action="editar.php?acao=payload" method="post">
                         <input type="hidden" name="id" value="<?= $dados['id'] ?>">
@@ -411,7 +411,7 @@ if (isset($_POST['editar_porta'])) : ?>
                 <div class="modal-body">
                     <?php
                     $id_porta = $_POST['editar_porta'];
-                    $sql = $conn->query("SELECT * FROM portas WHERE id='$id_porta'");
+                    $sql = db_query($conn, 'SELECT * FROM portas WHERE id=:id_porta', [':id_porta' => $id_porta]);
                     $dados = $sql->fetch(PDO::FETCH_ASSOC);  ?>
 
                     <form action="editar.php?acao=porta" method="post">
@@ -519,7 +519,7 @@ if (isset($_POST['editar_porta'])) : ?>
             </div>
             <div class="modal-body">
                 <?php
-                $sql = $conn->query("SELECT * FROM mensagens WHERE id_owner='$uid'");
+                $sql = db_query($conn, 'SELECT * FROM mensagens WHERE id_owner=:uid', [':uid' => $uid]);
                 $dados = $sql->fetch(PDO::FETCH_ASSOC);  ?>
 
                 <form action="editar.php?acao=sms" method="post">

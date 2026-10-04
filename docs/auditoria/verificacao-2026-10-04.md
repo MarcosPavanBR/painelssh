@@ -12,10 +12,10 @@ A versão publicada em `MarcosPavanBR/painelssh` contém as correções de harde
 | SEG-01 — allowlist no roteador administrativo | Aplicado | `gestorssh/admin/home.php` usa `$allowedPages` antes do include |
 | SEG-02 — edição administrativa com CSRF, prepared statements e hash | Aplicado | `gestorssh/admin/pages/usuario/editar_exe.php` |
 | SEG-03 — login Conecta4G com `password_verify`, migração de MD5 legado e regeneração de sessão | Aplicado | `gestorssh/conecta4g/login.php` |
-| SEG-04 — SQL dinâmico legado | **Pendente** | Há consultas interpoladas, principalmente em `gestorssh/conecta4g/` |
+| SEG-04 — SQL dinâmico legado | **Corrigido estaticamente** | Consultas interpoladas dos endpoints Conecta4G foram migradas para prepared statements; falta confirmar em staging com MariaDB/IDOR |
 | DOC-01 — ofuscação do módulo `appss` | **Pendente** | `gestorssh/appss/*.php` ainda usa `GLOBALS` e escapes hexadecimais |
 
-A contagem atual encontrou 59 ocorrências de `->query()` fora das dependências vendorizadas; parte delas é estática, mas várias ainda montam SQL a partir de valores de entrada. Isso exige migração individual e testes de autorização/IDOR, não uma substituição automática cega.
+As consultas que recebiam valores de entrada nos endpoints Conecta4G foram migradas individualmente para prepared statements. Restam consultas estáticas e identificadores de coluna/tabela controlados por allowlists; a validação end-to-end ainda depende de MariaDB e testes de autorização/IDOR.
 
 ## Plataforma
 

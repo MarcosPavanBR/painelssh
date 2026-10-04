@@ -10,7 +10,7 @@ if ($acao == "servidor") :
         $id = $_POST['id'];
         $id_owner = $_POST['id_owner'];
 
-        $sql = $conn->query("DELETE FROM servidores WHERE id='$id' AND id_owner='$id_owner'");
+        $sql = db_query($conn, 'DELETE FROM servidores WHERE id=:id AND id_owner=:id_owner', [':id' => $id, ':id_owner' => $id_owner]);
 
         if ($sql) :
             echo "<script>
@@ -34,7 +34,7 @@ elseif ($acao == "payload") :
         $id = $_POST['id'];
         $id_owner = $_POST['id_owner'];
 
-        $sql = $conn->query("DELETE FROM payloads WHERE id='$id' AND id_owner='$id_owner'");
+        $sql = db_query($conn, 'DELETE FROM payloads WHERE id=:id AND id_owner=:id_owner', [':id' => $id, ':id_owner' => $id_owner]);
 
         if ($sql) :
             echo "<script>
@@ -58,7 +58,7 @@ elseif ($acao == "porta") :
         $id = $_POST['id'];
         $id_owner = $_POST['id_owner'];
 
-        $sql = $conn->query("DELETE FROM portas WHERE id='$id' AND id_owner='$id_owner'");
+        $sql = db_query($conn, 'DELETE FROM portas WHERE id=:id AND id_owner=:id_owner', [':id' => $id, ':id_owner' => $id_owner]);
 
         if ($sql) :
             echo "<script>
@@ -85,7 +85,7 @@ elseif ($acao == "usuario") :
         $id = $_GET['id'];
         $pasta = getData('pasta_att', $id);
 
-        $sql = $conn->query("SELECT nivel FROM usuarios WHERE id='$id'")->fetch();
+        $sql = db_query($conn, 'SELECT nivel FROM usuarios WHERE id=:id', [':id' => $id])->fetch();
 
         if ($sql[0] >= 3) :
             echo "<script>
@@ -94,12 +94,12 @@ elseif ($acao == "usuario") :
             </script>";
         else :
 
-            $conn->query("DELETE FROM usuarios WHERE id='$id'");
-            $conn->query("DELETE FROM configuracoes WHERE id_owner='$id'");
-            $conn->query("DELETE FROM servidores WHERE id_owner='$id'");
-            $conn->query("DELETE FROM payloads WHERE id_owner='$id'");
-            $conn->query("DELETE FROM portas WHERE id_owner='$id'");
-            $sql = $conn->query("DELETE FROM mensagens WHERE id_owner='$id'");
+            db_query($conn, 'DELETE FROM usuarios WHERE id=:id', [':id' => $id]);
+            db_query($conn, 'DELETE FROM configuracoes WHERE id_owner=:id', [':id' => $id]);
+            db_query($conn, 'DELETE FROM servidores WHERE id_owner=:id', [':id' => $id]);
+            db_query($conn, 'DELETE FROM payloads WHERE id_owner=:id', [':id' => $id]);
+            db_query($conn, 'DELETE FROM portas WHERE id_owner=:id', [':id' => $id]);
+            $sql = db_query($conn, 'DELETE FROM mensagens WHERE id_owner=:id', [':id' => $id]);
 
             delTree("update/$pasta");
 
