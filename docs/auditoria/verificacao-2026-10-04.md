@@ -13,7 +13,7 @@ A versão publicada em `MarcosPavanBR/painelssh` contém as correções de harde
 | SEG-02 — edição administrativa com CSRF, prepared statements e hash | Aplicado | `gestorssh/admin/pages/usuario/editar_exe.php` |
 | SEG-03 — login Conecta4G com `password_verify`, migração de MD5 legado e regeneração de sessão | Aplicado | `gestorssh/conecta4g/login.php` |
 | SEG-04 — SQL dinâmico legado | **Corrigido estaticamente** | Consultas interpoladas dos endpoints Conecta4G foram migradas para prepared statements; falta confirmar em staging com MariaDB/IDOR |
-| DOC-01 — ofuscação do módulo `appss` | **Pendente** | `gestorssh/appss/*.php` ainda usa `GLOBALS` e escapes hexadecimais |
+| DOC-01 — ofuscação do módulo `appss` | **Corrigido estaticamente** | Strings hexadecimais foram decodificadas com preservação sintática; roteador e download também foram endurecidos |
 
 As consultas que recebiam valores de entrada nos endpoints Conecta4G foram migradas individualmente para prepared statements. Restam consultas estáticas e identificadores de coluna/tabela controlados por allowlists; a validação end-to-end ainda depende de MariaDB e testes de autorização/IDOR.
 

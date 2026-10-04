@@ -13,7 +13,7 @@
 
 ## Limitação importante
 
-As consultas SQL interpoladas identificadas nos endpoints Conecta4G foram migradas para prepared statements parametrizados. A revisão ainda deve ser repetida em staging com MariaDB. O módulo `appss/` continua ofuscado e precisa de conversão sintática controlada; isso é dívida de manutenção e impede declarar o pacote pronto para produção.
+As consultas SQL interpoladas identificadas nos endpoints Conecta4G foram migradas para prepared statements parametrizados. A revisão ainda deve ser repetida em staging com MariaDB. O módulo `appss/` foi convertido para strings legíveis, teve o roteador protegido por allowlist, a consulta de download parametrizada e recursos HTTP atualizados para HTTPS. Ainda exige testes funcionais em staging antes de produção; detalhes estão em `docs/auditoria/appss-modernizacao.md`.
 
 ## Validação
 

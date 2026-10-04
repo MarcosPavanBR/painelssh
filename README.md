@@ -6,7 +6,7 @@ Painel web para gerenciamento de usuários, servidores, payloads, portas, aplica
 
 **Staging / desenvolvimento — ainda não liberado para produção.**
 
-As correções de roteamento por allowlist, hash de senhas, migração de MD5 legado, regeneração de sessão, CSRF e proteção de segredos SSH estão presentes e foram verificadas estaticamente. As consultas SQL interpoladas identificadas nos endpoints Conecta4G foram migradas para prepared statements e validadas por lint/testes estáticos. O módulo `gestorssh/appss/` permanece ofuscado; ele precisa de uma conversão sintática controlada e testes funcionais antes de ser considerado modernizado.
+As correções de roteamento por allowlist, hash de senhas, migração de MD5 legado, regeneração de sessão, CSRF e proteção de segredos SSH estão presentes e foram verificadas estaticamente. As consultas SQL interpoladas identificadas nos endpoints Conecta4G foram migradas para prepared statements e validadas por lint/testes estáticos. O módulo `gestorssh/appss/` foi tornado legível, teve o roteador protegido e a consulta de download parametrizada; ainda precisa de testes funcionais em staging.
 
 Consulte:
 
@@ -51,7 +51,7 @@ A validação completa ainda depende de Composer, MariaDB/pdo_mysql e um ambient
 
 ## Próximos passos de modernização
 
-1. Tornar `gestorssh/appss/` legível e versionável por conversão sintática controlada, após testes funcionais.
+1. Executar testes funcionais do `gestorssh/appss/` em staging com MariaDB e navegador.
 3. Gerar e revisar `composer.lock` no ambiente de build.
 4. Executar testes end-to-end de autorização, SQLi, CSRF, uploads e fluxos SSH.
 5. Reexecutar a auditoria e só então avaliar a liberação para produção.
@@ -64,4 +64,4 @@ A instalação automatizada foi escrita para Ubuntu 24.04 e não deve ser tratad
 git clone https://github.com/MarcosPavanBR/painelssh.git && cd painelssh && sudo bash ops/install.sh
 ```
 
-O comando exige acesso de leitura ao repositório. Antes de expor o painel, configure HTTPS, altere `FORCE_SECURE_COOKIES` para `1` e valide os fluxos em staging. O módulo `gestorssh/appss/` permanece legado/ofuscado e não deve ser considerado modernizado apenas por executar o instalador.
+O comando exige acesso de leitura ao repositório. Antes de expor o painel, configure HTTPS, altere `FORCE_SECURE_COOKIES` para `1` e valide os fluxos em staging. O módulo `gestorssh/appss/` foi modernizado estaticamente, mas deve ser validado em staging antes de produção.
