@@ -1,0 +1,36 @@
+{
+  "commit": "sem-git",
+  "status": "NAO_PRONTO",
+  "achados": [
+    {
+      "id": "SEG-01",
+      "severidade": "info",
+      "status": "confirmado"
+    },
+    {
+      "id": "SEG-01",
+      "severidade": "info",
+      "status": "confirmado"
+    },
+    {
+      "id": "SEG-02",
+      "severidade": "alta",
+      "status": "confirmado"
+    },
+    {
+      "id": "SEG-03",
+      "severidade": "alta",
+      "status": "confirmado"
+    },
+    {
+      "id": "SEG-04",
+      "severidade": "alta",
+      "status": "confirmado"
+    },
+    {
+      "id": "DOC-01",
+      "severidade": "media",
+      "status": "provavel"
+    }
+  ]
+}

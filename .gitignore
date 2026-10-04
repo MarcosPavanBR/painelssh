@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+*.log
+*.sql.gz
+*.bak
+*.backup
+backup/
+backups/
+var/
+/vendor/
+.DS_Store
+Thumbs.db

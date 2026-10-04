@@ -1,0 +1,13 @@
+{
+  "projeto": "Painel Web",
+  "commit": "sem-git",
+  "modo": "completo",
+  "visibilidade": "privado",
+  "staging_permitido": false,
+  "pode_instalar": false,
+  "suposicoes": [
+    "somente artefatos anexados",
+    "sem MariaDB/pdo_mysql",
+    "sem staging externo"
+  ]
+}

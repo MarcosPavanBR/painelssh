@@ -1,0 +1,26 @@
+[
+  {
+    "id": "AP-01",
+    "titulo": "Entrada HTTP → SQL dinâmico no legado Conecta4G",
+    "severidade": "alta",
+    "impacto": "Possível manipulação de consultas em endpoints legados",
+    "prerequisito": "Acesso ao endpoint afetado",
+    "passos": [
+      {
+        "etapa": "entrada",
+        "acao": "Parâmetro de requisição chega ao código legado",
+        "achado": "SEG-04"
+      },
+      {
+        "etapa": "execução",
+        "acao": "Valor participa de SQL dinâmico",
+        "achado": "SEG-04"
+      },
+      {
+        "etapa": "consequencia",
+        "acao": "Impacto exato depende do endpoint e banco",
+        "achado": null
+      }
+    ]
+  }
+]

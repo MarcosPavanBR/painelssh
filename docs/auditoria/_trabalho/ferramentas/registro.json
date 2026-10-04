@@ -1,0 +1,22 @@
+[
+  {
+    "nome": "php-lint",
+    "status": "executado",
+    "saida": "_trabalho/ferramentas/php-lint.txt"
+  },
+  {
+    "nome": "bash-n",
+    "status": "executado",
+    "saida": "_trabalho/ferramentas/bash-lint.txt"
+  },
+  {
+    "nome": "composer",
+    "status": "indisponivel",
+    "obs": "composer não instalado no ambiente"
+  },
+  {
+    "nome": "mariadb",
+    "status": "indisponivel",
+    "obs": "cliente MariaDB/MySQL e extensão pdo_mysql ausentes"
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "arquivo": "gestorssh/home.php",
+    "linha": 718,
+    "linha_fim": 723,
+    "trecho": "                $allowedPages = [\n    'admin/dados' => true,\n    'chamados/abertas' => true,\n    'chamados/abrir' => true,\n    'chamados/encerrados' => true,\n    'chamados/respondidos' => true,\n",
+    "trecho_sha256": "71365eb025eb15fecfc454a82ed5253f8e517fa85b48eb10ac4f8d00d6d0f9b9",
+    "id": "SEG-01",
+    "titulo": "Roteador usuário agora usa allowlist explícita",
+    "severidade": "info",
+    "status": "confirmado",
+    "tipo": "seguranca",
+    "dimensao": "Autorização e roteamento",
+    "categoria": "Path traversal / local file inclusion",
+    "papel": "SEG",
+    "descricao": "O roteador deixou de concatenar diretamente o parâmetro page em file_exists/include e passou a aceitar somente chaves presentes em allowPages.",
+    "causa_raiz": "Ausência de allowlist explícita no roteador legado.",
+    "impacto": "Reduz superfície de inclusão arbitrária via parâmetro page.",
+    "correcao": "Allowlist estática e require baseado em chave validada.",
+    "criterios_aceite": [
+      "page desconhecido cai em inicial.php",
+      "../ não pode selecionar arquivo fora da lista"
+    ],
+    "esforco": "M",
+    "referencias": [
+      "OWASP A01:2021"
+    ]
+  },
+  {
+    "arquivo": "gestorssh/admin/home.php",
+    "linha": 479,
+    "linha_fim": 484,
+    "trecho": "                $allowedPages = [\n    'admin/dados' => true,\n    'apps' => true,\n    'chamados/abertas' => true,\n    'chamados/encerrados' => true,\n    'chamados/respondidos' => true,\n",
+    "trecho_sha256": "60b584f36ef77dc086f1cbf737e3afbde987b9cd8dac015ffdce617324e095f6",
+    "id": "SEG-01",
+    "titulo": "Roteador admin agora usa allowlist explícita",
+    "severidade": "info",
+    "status": "confirmado",
+    "tipo": "seguranca",
+    "dimensao": "Autorização e roteamento",
+    "categoria": "Path traversal / local file inclusion",
+    "papel": "SEG",
+    "descricao": "O roteador deixou de concatenar diretamente o parâmetro page em file_exists/include e passou a aceitar somente chaves presentes em allowPages.",
+    "causa_raiz": "Ausência de allowlist explícita no roteador legado.",
+    "impacto": "Reduz superfície de inclusão arbitrária via parâmetro page.",
+    "correcao": "Allowlist estática e require baseado em chave validada.",
+    "criterios_aceite": [
+      "page desconhecido cai em inicial.php",
+      "../ não pode selecionar arquivo fora da lista"
+    ],
+    "esforco": "M",
+    "referencias": [
+      "OWASP A01:2021"
+    ]
+  },
+  {
+    "arquivo": "gestorssh/admin/pages/usuario/editar_exe.php",
+    "linha": 80,
+    "linha_fim": 95,
+    "trecho": "csrf_verify($_POST['_csrf'] ?? null);\n\n$id = filter_var($_POST['idusuario'] ?? null, FILTER_VALIDATE_INT);\n$nome = trim((string)($_POST['nome'] ?? ''));\n$email = trim((string)($_POST['email'] ?? ''));\n$celular = trim((string)($_POST['celular'] ?? ''));\n$senha = (string)($_POST['senha'] ?? '');\n$acesso = (string)($_POST['acesso'] ?? '0');\nif (!$id || $nome === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($nome) > 100 || strlen($celular) > 30 || !in_array($acesso, ['0','1','2'], true)) {\n    http_response_code(422); exit('Dados inválidos.');\n}\nif ($senha !== '' && (strlen($senha) < 10 || strlen($senha) > 128)) { http_response_code(422); exit('Senha inválida.'); }\n\n$check = $conn->prepare('SELECT id_usuario FROM usuario WHERE id_usuario = :id LIMIT 1');\n$check->execute([':id' => $id]);\nif (!$check->fetch()) { http_response_code(404); exit('Usuário não encontrado.'); }\n",
+    "trecho_sha256": "f828c33b59520e8229e71af6ce1308ea655b1a79dce4ab5c95574d46cd5c0198",
+    "id": "SEG-02",
+    "titulo": "Edição administrativa de usuário usa CSRF e hash de senha",
+    "severidade": "alta",
+    "status": "confirmado",
+    "tipo": "seguranca",
+    "dimensao": "Autenticação e credenciais",
+    "categoria": "Credenciais",
+    "papel": "SEG",
+    "descricao": "O endpoint administrativo valida POST/CSRF e grava nova senha com password_hash().",
+    "causa_raiz": "Fluxo legado gravava senha fornecida pelo formulário diretamente.",
+    "impacto": "Reduz risco de armazenamento de senha em claro no fluxo de edição.",
+    "correcao": "Prepared statements, password_hash e CSRF.",
+    "criterios_aceite": [
+      "senha alterada fica em formato password_hash",
+      "POST sem CSRF retorna 419"
+    ],
+    "esforco": "M",
+    "referencias": [
+      "CWE-256",
+      "CWE-352"
+    ]
+  },
+  {
+    "arquivo": "gestorssh/conecta4g/login.php",
+    "linha": 11,
+    "linha_fim": 31,
+    "trecho": "    $stmt->execute([':login'=>$login]);\n    $row = $stmt->fetch();\n    $valid = false; $legacy = false;\n    if ($row) {\n        $stored=(string)($row['senha'] ?? '');\n        $valid=password_verify($senha,$stored);\n        if (!$valid && preg_match('/^[a-f0-9]{32}$/i',$stored) && hash_equals($stored,md5($senha))) { $valid=true; $legacy=true; }\n        if ($valid && $legacy) { $up=$conn->prepare('UPDATE usuarios SET senha=:senha WHERE id=:id'); $up->execute([':senha'=>password_hash($senha,PASSWORD_DEFAULT),':id'=>(int)$row['id']]); }\n    }\n    if (!$valid) { $_SESSION['erro'] = '<center><div class=\"alert alert-danger\">Usuário ou senha incorretos</div></center>'; return; }\n    $uid=(int)$row['id'];\n    $conn->prepare('DELETE FROM sessao WHERE uid=:uid')->execute([':uid'=>$uid]);\n    session_regenerate_id(true);\n    $xtm=time()+1800; $sid=bin2hex(random_bytes(32));\n    $conn->prepare('INSERT INTO sessao (id,uid,expira) VALUES (:id,:uid,:expira)')->execute([':id'=>$sid,':uid'=>$uid,':expira'=>$xtm]);\n    $_SESSION['logado']=$sid; $_SESSION['_csrf']=bin2hex(random_bytes(32)); $_SESSION['auth_time']=time(); $_SESSION['last_activity']=time();\n    header('Location: /conecta4g/home.php', true, 303); exit;\n}\n",
+    "trecho_sha256": "ebc5c92d44dc2bb86199c1de5c7732f601cf065f2954f22007396ea94b0c6f3d",
+    "id": "SEG-03",
+    "titulo": "Login Conecta4G migra de MD5 para password_verify e regenera sessão",
+    "severidade": "alta",
+    "status": "confirmado",
+    "tipo": "seguranca",
+    "dimensao": "Autenticação e sessão",
+    "categoria": "Autenticação",
+    "papel": "SEG",
+    "descricao": "O login usa prepared statement, password_verify, migração de MD5 legado após sucesso e session_regenerate_id(true).",
+    "causa_raiz": "Autenticação legada baseada em MD5 e identificador previsível.",
+    "impacto": "Reduz comprometimento de credenciais e fixation de sessão.",
+    "correcao": "Hash moderno, migração única, ID aleatório e regeneração.",
+    "criterios_aceite": [
+      "senha nova nunca é armazenada em MD5",
+      "sessão é regenerada no login"
+    ],
+    "esforco": "M",
+    "referencias": [
+      "CWE-328",
+      "CWE-384"
+    ]
+  },
+  {
+    "arquivo": "gestorssh/conecta4g/editar.php",
+    "linha": 110,
+    "linha_fim": 112,
+    "trecho": "        $busca = $conn->query(\"SELECT * FROM mensagens WHERE id_owner='$id_owner'\");\n\n        if ($busca->rowCount() > 0) :\n",
+    "trecho_sha256": "917a970f65f902199272951c6ca8b05554a53d12efa65d5b9ba167dc82b7811b",
+    "id": "SEG-04",
+    "titulo": "SQL dinâmico legado permanece no módulo Conecta4G",
+    "severidade": "alta",
+    "status": "confirmado",
+    "tipo": "seguranca",
+    "dimensao": "Injeção",
+    "categoria": "SQL Injection",
+    "papel": "SEG",
+    "descricao": "A varredura encontrou 53 chamadas PDO::query interpoladas e 0 chamadas mysqli::query interpoladas fora de vendor. O módulo Conecta4G ainda contém entradas vindas de variáveis de requisição em SQL dinâmico.",
+    "causa_raiz": "Migração V2 incompleta do legado SQL.",
+    "impacto": "Dependendo do caminho de entrada, pode permitir alteração/leitura indevida de dados e bypass de autorização.",
+    "correcao": "Converter cada consulta dinâmica para prepared statement com parâmetros e testar autorização do recurso.",
+    "criterios_aceite": [
+      "zero query interpolada em código de aplicação",
+      "testes de SQLi e autorização passam nos endpoints afetados"
+    ],
+    "esforco": "G",
+    "referencias": [
+      "OWASP A03:2021",
+      "CWE-89"
+    ],
+    "exploracao": "Não foi executada PoC contra MariaDB porque o ambiente não possui MariaDB/pdo_mysql.",
+    "contraevidencia": "Alguns valores podem ser derivados de sessão ou passar por validação; isso não elimina o risco em todo o catálogo.",
+    "reproducao": "Busca estática reproduzível; teste end-to-end depende de banco.",
+    "blast_radius": "Não estimado sem banco/harness.",
+    "red_team": {
+      "veredito": "provavel",
+      "justificativa": "Evidência de concatenação em SQL real; exploração end-to-end não foi possível neste ambiente."
+    },
+    "blue_team": {
+      "argumento": "Alguns caminhos usam valores de sessão ou validação legada.",
+      "resposta": "Isso reduz alguns casos, mas não prova segurança do catálogo inteiro."
+    }
+  }
+]

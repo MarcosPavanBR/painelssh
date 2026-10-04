@@ -1,0 +1,20 @@
+{
+  "veredito": {
+    "status": "não pronto",
+    "motivo": "Persistem SQLs dinâmicos no legado e os testes end-to-end dependentes de MariaDB/staging não puderam ser executados."
+  },
+  "achados_por_severidade": {
+    "critica": 0,
+    "alta": 3,
+    "media": 1,
+    "baixa": 0,
+    "info": 2
+  },
+  "testes": {
+    "php_lint": "passou",
+    "bash_lint": "passou",
+    "security_v3": "passou",
+    "mariadb": "indisponivel",
+    "composer": "indisponivel"
+  }
+}

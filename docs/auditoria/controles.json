@@ -1,0 +1,68 @@
+[
+  {
+    "superficie": "Autenticação principal",
+    "controles": {
+      "autenticacao": {
+        "status": "PRESENTE",
+        "evidencia": "gestorssh/pages/system/seguranca.php:48"
+      },
+      "autorizacao": {
+        "status": "PRESENTE",
+        "evidencia": "gestorssh/pages/system/seguranca.php:93"
+      },
+      "isolamento_tenant": {
+        "status": "NAO_VERIFICADO",
+        "motivo": "requer testes end-to-end com MariaDB"
+      },
+      "validacao": {
+        "status": "PRESENTE",
+        "evidencia": "gestorssh/pages/system/seguranca.php:54"
+      },
+      "rate_limit": {
+        "status": "PRESENTE",
+        "evidencia": "gestorssh/pages/system/seguranca.php:31"
+      },
+      "logging": {
+        "status": "NAO_VERIFICADO",
+        "motivo": "sem ambiente operacional"
+      },
+      "idempotencia": {
+        "status": "NAO_APLICAVEL",
+        "motivo": "login"
+      }
+    }
+  },
+  {
+    "superficie": "Roteadores web",
+    "controles": {
+      "autenticacao": {
+        "status": "PRESENTE",
+        "evidencia": "gestorssh/home.php:718"
+      },
+      "autorizacao": {
+        "status": "PRESENTE",
+        "evidencia": "gestorssh/home.php:718"
+      },
+      "isolamento_tenant": {
+        "status": "NAO_APLICAVEL",
+        "motivo": "roteamento"
+      },
+      "validacao": {
+        "status": "PRESENTE",
+        "evidencia": "gestorssh/home.php:719"
+      },
+      "rate_limit": {
+        "status": "NAO_APLICAVEL",
+        "motivo": "roteamento"
+      },
+      "logging": {
+        "status": "NAO_VERIFICADO",
+        "motivo": "sem staging"
+      },
+      "idempotencia": {
+        "status": "NAO_APLICAVEL",
+        "motivo": "roteamento"
+      }
+    }
+  }
+]

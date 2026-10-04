@@ -1,0 +1,14 @@
+{
+  "de_v2_para_v3": [
+    "roteadores com allowlist",
+    "Conecta4G login migrado de MD5",
+    "CSRF/logout Conecta4G",
+    "edição/cadastro admin com hash",
+    "instaladores legados isolados"
+  ],
+  "bloqueadores_restantes": [
+    "SQL dinâmico legado",
+    "testes MariaDB/staging",
+    "composer.lock/SBOM"
+  ]
+}

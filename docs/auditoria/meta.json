@@ -1,0 +1,72 @@
+{
+  "projeto": "Painel Web",
+  "data": "2026-10-04",
+  "commit": "sem-git",
+  "branch": "desconhecida",
+  "modo": "completo",
+  "veredito": {
+    "status": "não pronto",
+    "motivo": "Persistem SQLs dinâmicos no legado e os testes end-to-end dependentes de MariaDB/staging não puderam ser executados."
+  },
+  "resumo": "A V3 foi realmente construída a partir do pacote V2 e submetida às validações disponíveis no ambiente. O bootstrap, autenticação, sessão, CSRF e roteadores receberam correções verificáveis. A sintaxe PHP e Shell passou sem erros e o teste de segurança V3 passou. Entretanto, a auditoria ainda encontra SQL dinâmico legado em múltiplos endpoints, o que impede declarar ausência de SQL Injection. Também não há MariaDB/pdo_mysql nem Composer no ambiente, portanto testes end-to-end e resolução de dependências permanecem pendentes.",
+  "escopo": [
+    {
+      "app": "gestorssh",
+      "stack": "PHP 8.x + MariaDB/MySQL",
+      "cobertura": "592 arquivos PHP inventariados"
+    }
+  ],
+  "metodologia": [
+    "evidência local com SHA-256",
+    "lint PHP/Shell",
+    "varredura estática SQL/execução",
+    "revisão de auth/CSRF/router/SSH",
+    "testes de regressão locais"
+  ],
+  "notas": {
+    "Segurança": 5,
+    "Qualidade": 6,
+    "Arquitetura": 5,
+    "Conformidade": 5,
+    "Operação": 5
+  },
+  "pontos_fortes": [
+    {
+      "titulo": "Allowlist nos roteadores",
+      "evidencia": "gestorssh/home.php:718"
+    },
+    {
+      "titulo": "Password hashing no fluxo administrativo",
+      "evidencia": "gestorssh/admin/pages/usuario/editar_exe.php:103"
+    }
+  ],
+  "pontos_fracos": [
+    "SQL dinâmico legado",
+    "Ausência de ambiente MariaDB/staging",
+    "Composer/SBOM não executados"
+  ],
+  "criterios_producao": [
+    {
+      "item": "Nenhum crítico aberto",
+      "ok": true
+    },
+    {
+      "item": "SQL dinâmico legado eliminado",
+      "ok": false
+    },
+    {
+      "item": "Testes de regressão passando",
+      "ok": false
+    },
+    {
+      "item": "Testes MariaDB/staging executados",
+      "ok": false
+    }
+  ],
+  "nao_verificado": [
+    "Fluxos end-to-end com MariaDB",
+    "corridas/concurrency",
+    "dependências resolvidas pelo Composer",
+    "infraestrutura de produção"
+  ]
+}

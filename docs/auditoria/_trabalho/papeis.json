@@ -1,0 +1,78 @@
+{
+  "ARQ": {
+    "status": "executado",
+    "obs": ""
+  },
+  "SEG": {
+    "status": "executado",
+    "obs": ""
+  },
+  "API": {
+    "status": "executado",
+    "obs": ""
+  },
+  "WEB": {
+    "status": "executado",
+    "obs": ""
+  },
+  "MOB": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "DBA": {
+    "status": "executado",
+    "obs": ""
+  },
+  "OPS": {
+    "status": "executado",
+    "obs": ""
+  },
+  "NET": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "SUP": {
+    "status": "executado",
+    "obs": ""
+  },
+  "QA": {
+    "status": "executado",
+    "obs": ""
+  },
+  "PERF": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "UX": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "DPO": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "NEG": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "FIN": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "IA": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "CRY": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "CST": {
+    "status": "nao_se_aplica",
+    "obs": "Revisão estática sem mobile/IA/infra operacional disponível"
+  },
+  "DOC": {
+    "status": "executado",
+    "obs": ""
+  }
+}

@@ -1,0 +1,60 @@
+PHP: 592
+Shell: 19
+Interpolated PDO query calls (non-vendor): 53
+Interpolated mysqli query calls (non-vendor): 0
+SQL assignments using request/session data (line heuristic): 174
+
+First remaining PDO query locations:
+bin/migrate_secrets.php:10: foreach ($conn->query("SELECT id_servidor,senha FROM servidor") as $row) {
+bin/migrate_secrets.php:16: foreach ($conn->query("SELECT id_usuario_ssh,senha FROM usuario_ssh") as $row) {
+gestorssh/conecta4g/adicionar.php:18: $sql = $conn->query("SELECT * FROM servidores WHERE Name='$nome' AND id_owner='$id_owner'")->rowCount();
+gestorssh/conecta4g/adicionar.php:61: $sql = $conn->query("SELECT * FROM payloads WHERE Name='$nome' AND id_owner='$id_owner'")->rowCount();
+gestorssh/conecta4g/adicionar.php:96: $sql = $conn->query("SELECT * FROM portas WHERE Porta='$porta' AND id_owner='$id_owner'")->rowCount();
+gestorssh/conecta4g/adicionar.php:162: $conn->query("INSERT INTO payloads SET id_owner='$id_owner', Name='$nome', FLAG='$flag', Payload='$payload', SNI='$sni', TlsIP='$tlsip', ProxyIP='$proxyip', ProxyPort='$proxyport', Info='$info'");
+gestorssh/conecta4g/adicionar.php:193: $sql = $conn->query("SELECT * FROM usuarios WHERE login='$login'");
+gestorssh/conecta4g/adicionar.php:202: $sql = $conn->query("INSERT INTO usuarios SET nome='$nome', login='$login', senha='$senha', pasta_att='$pasta'");
+gestorssh/conecta4g/app.php:56: $sql = $conn->query("SELECT * FROM servidores WHERE id_owner='$uid'");
+gestorssh/conecta4g/app.php:73: $sql = $conn->query("SELECT * FROM payloads WHERE id_owner='$uid'");
+gestorssh/conecta4g/app.php:91: $sql = $conn->query("SELECT * FROM portas WHERE id_owner='$uid'");
+gestorssh/conecta4g/app.php:121: $sql = $conn->query("SELECT Name, TYPE, FLAG, ServerIP, CheckUser, ServerPort, SSLPort, USER, PASS FROM servidores  WHERE id_owner='$uid'");
+gestorssh/conecta4g/app.php:128: $sql = $conn->query("SELECT Name, FLAG, Payload, SNI, TlsIP, ProxyIP, ProxyPort, Info FROM payloads  WHERE id_owner='$uid'");
+gestorssh/conecta4g/app.php:135: $sql = $conn->query("SELECT Porta FROM portas WHERE id_owner='$uid'");
+gestorssh/conecta4g/modais.php:212: $sql = $conn->query("SELECT * FROM servidores WHERE id='$id_servidor'");
+gestorssh/conecta4g/modais.php:307: $sql = $conn->query("SELECT * FROM payloads WHERE id='$id_payload'");
+gestorssh/conecta4g/modais.php:414: $sql = $conn->query("SELECT * FROM portas WHERE id='$id_porta'");
+gestorssh/conecta4g/modais.php:522: $sql = $conn->query("SELECT * FROM mensagens WHERE id_owner='$uid'");
+gestorssh/conecta4g/usuarios.php:147: $sql = $conn->query("SELECT * FROM usuarios WHERE id='" . $_POST['id'] . "'");
+gestorssh/conecta4g/excluir.php:13: $sql = $conn->query("DELETE FROM servidores WHERE id='$id' AND id_owner='$id_owner'");
+gestorssh/conecta4g/excluir.php:37: $sql = $conn->query("DELETE FROM payloads WHERE id='$id' AND id_owner='$id_owner'");
+gestorssh/conecta4g/excluir.php:61: $sql = $conn->query("DELETE FROM portas WHERE id='$id' AND id_owner='$id_owner'");
+gestorssh/conecta4g/excluir.php:88: $sql = $conn->query("SELECT nivel FROM usuarios WHERE id='$id'")->fetch();
+gestorssh/conecta4g/excluir.php:97: $conn->query("DELETE FROM usuarios WHERE id='$id'");
+gestorssh/conecta4g/excluir.php:98: $conn->query("DELETE FROM configuracoes WHERE id_owner='$id'");
+gestorssh/conecta4g/excluir.php:99: $conn->query("DELETE FROM servidores WHERE id_owner='$id'");
+gestorssh/conecta4g/excluir.php:100: $conn->query("DELETE FROM payloads WHERE id_owner='$id'");
+gestorssh/conecta4g/excluir.php:101: $conn->query("DELETE FROM portas WHERE id_owner='$id'");
+gestorssh/conecta4g/excluir.php:102: $sql = $conn->query("DELETE FROM mensagens WHERE id_owner='$id'");
+gestorssh/conecta4g/editar.php:110: $busca = $conn->query("SELECT * FROM mensagens WHERE id_owner='$id_owner'");
+gestorssh/conecta4g/editar.php:114: $sql = $conn->query("UPDATE mensagens SET msg='$sms' WHERE id_owner='$id_owner'");
+gestorssh/conecta4g/editar.php:118: $sql = $conn->query("INSERT INTO mensagens SET id_owner='$id_owner', msg='$sms'");
+gestorssh/conecta4g/editar.php:125: $busca = $conn->query("SELECT * FROM mensagens WHERE id_owner='$id_owner'")->fetch();
+gestorssh/conecta4g/editar.php:164: $sql = $conn->query("SELECT * FROM configuracoes WHERE id_owner='$id_owner'");
+gestorssh/conecta4g/editar.php:167: $config = $conn->query("INSERT INTO configuracoes SET id_owner='$id_owner', notas='$notas', sms='$sms', att='$update', email='$email', contato='$contato', termos='$termos', checkuser='$checkuser'");
+gestorssh/conecta4g/editar.php:176: $config = $conn->query("UPDATE configuracoes SET notas='$notas', email='$email', contato='$contato', termos='$termos', checkuser='$checkuser' WHERE id_owner='$id_owner'");
+gestorssh/conecta4g/editar.php:203: $sql_logo = $conn->query("UPDATE configs SET valor='$logo' WHERE nome='logo'");
+gestorssh/conecta4g/editar.php:204: $sql_altura = $conn->query("UPDATE configs SET valor='$altura' WHERE nome='altura'");
+gestorssh/conecta4g/editar.php:205: $sql_largura = $conn->query("UPDATE configs SET valor='$largura' WHERE nome='largura'");
+gestorssh/conecta4g/editar.php:206: $sql_link = $conn->query("UPDATE configs SET valor='$link' WHERE nome='link'");
+gestorssh/conecta4g/editar.php:207: $sql_titulo = $conn->query("UPDATE configs SET valor='$titulo' WHERE nome='titulo'");
+gestorssh/conecta4g/editar.php:223: $sql = $conn->query("SELECT * FROM usuarios WHERE nome='$nome'")->rowCount();
+gestorssh/conecta4g/editar.php:236: $sql = $conn->query("UPDATE usuarios SET nome='$nome' WHERE id='" . getIdBySid($sid) . "'");
+gestorssh/conecta4g/editar.php:245: $sql = $conn->query("SELECT * FROM usuarios WHERE login='$login'")->rowCount();
+gestorssh/conecta4g/editar.php:258: $sql = $conn->query("UPDATE usuarios SET login='$login' WHERE id='" . getIdBySid($sid) . "'");
+gestorssh/conecta4g/editar.php:275: $sql = $conn->query("UPDATE usuarios SET senha='$senha' WHERE id='" . getIdBySid($sid) . "'");
+gestorssh/conecta4g/editar.php:285: $sql = $conn->query("SELECT * FROM usuarios WHERE pasta_att='$pasta'");
+gestorssh/conecta4g/editar.php:307: $conn->query("UPDATE configuracoes SET att='$update', sms='$sms' WHERE id_owner='" . getIdBySid($sid) . "'");
+gestorssh/conecta4g/editar.php:309: $sql = $conn->query("UPDATE usuarios SET pasta_att='$pasta' WHERE id='" . getIdBySid($sid) . "'");
+gestorssh/conecta4g/editar.php:333: $sql = $conn->query("UPDATE usuarios SET nome='$nome', login='$login', nivel='$nivel', pasta_att='" . $_POST['pasta_nova'] . "' WHERE id='$id'");
+gestorssh/conecta4g/editar.php:343: $conn->query("UPDATE configuracoes SET att='$update', sms='$sms' WHERE id_owner='$id");
+gestorssh/conecta4g/editar.php:355: $sql = $conn->query("UPDATE usuarios SET nome='$nome', login='$login', senha='$senha', nivel='$nivel', pasta_att='" . $_POST['pasta_nova'] . "' WHERE id='$id'");
+gestorssh/conecta4g/editar.php:365: $conn->query("UPDATE configuracoes SET att='$update', sms='$sms' WHERE id_owner='$id'");
