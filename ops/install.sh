@@ -127,7 +127,7 @@ systemctl reload apache2
 if [[ -f "$APP_ROOT/vendor/autoload.php" ]]; then
   log "Dependências vendorizadas já presentes; Composer não foi executado automaticamente."
 elif command -v composer >/dev/null 2>&1; then
-  (cd "$APP_ROOT" && composer install --no-dev --prefer-dist --optimize-autoloader)
+  (cd "$APP_ROOT" && COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --prefer-dist --optimize-autoloader)
 else
   log "AVISO: Composer não está instalado e vendor/autoload.php não existe."
 fi
@@ -141,4 +141,4 @@ unset ADMIN_PASSWORD DB_PASSWORD
 log "Instalação concluída em $APP_ROOT"
 log "URL HTTP inicial: http://$APP_DOMAIN"
 log "Configure HTTPS antes de uso público e depois altere FORCE_SECURE_COOKIES para 1."
-log "O módulo appss continua legado/ofuscado e deve ser validado em staging antes de produção."
+log "O módulo appss foi endurecido estaticamente; valide-o em staging antes de produção."

@@ -16,7 +16,7 @@ $GLOBALS
 ${
 $GLOBALS
 ["qflpoyg"]}
-="SELECT * FROM admin WHERE id_administrador = '1'";
+="SELECT * FROM admin ORDER BY id_administrador ASC LIMIT 1";
 $dkthtsmojnt="administrador";
 ${
 $GLOBALS
@@ -51,7 +51,7 @@ $GLOBALS
 echo "</h1>\n</div>\n</div>\n</div>\n</header>\n<!-- BEGIN: Content-->\n<div class=\"main-content mt-5\">\n<div class=\"page-content\">\n<div class=\"container-fluid\">\n<!-- start page title -->\n<div class=\"row\">\n<div class=\"col-12\">\n<div class=\"page-title-box text-center\">\n<h2 class=\"mb-0\">NOSSOS APLICATIVOS</h2>\n</div>\n</div>\n</div>\n<div class=\"col-md-3 col-xl-12\">\n<!-- Dashboard Analytics end -->\n";
 $appPage=(string)($_GET["page"] ?? "");
 $allowedAppPages=["termos"=>"termos.php"];
-include($allowedAppPages[$appPage] ?? "../apps/downloads.php");
+include($allowedAppPages[$appPage] ?? "downloads.php");
 echo "<!-- END: Content-->\n</div>\n<!-- RODAPE -->\n<footer class=\"footer\">\n<div class=\"container-fluid\">\n<div class=\"row\">\n<div class=\"col-sm-6\">\n2021 - <script> document.write(new Date().getFullYear())</script> ";
 echo${
 $GLOBALS

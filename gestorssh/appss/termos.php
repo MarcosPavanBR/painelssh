@@ -12,7 +12,7 @@ require_once("../pages/system/classe.ssh.php");
 ${
 $GLOBALS
 ["vqfcgki"]}
-="SELECT * FROM admin WHERE id_administrador = '1'";
+="SELECT * FROM admin ORDER BY id_administrador ASC LIMIT 1";
 ${
 $GLOBALS
 ["vqfcgki"]}

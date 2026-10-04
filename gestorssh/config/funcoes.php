@@ -97,11 +97,13 @@ function getUser($uid): bool {
     $stmt->execute([':id' => (int)$uid]);
     return (bool)$stmt->fetchColumn();
 }
-function getConfig($name) {
-    global $conn;
-    $stmt = $conn->prepare('SELECT valor FROM configs WHERE nome = :nome LIMIT 1');
-    $stmt->execute([':nome' => (string)$name]);
-    return $stmt->fetchColumn();
+if (!function_exists('getConfig')) {
+    function getConfig($name) {
+        global $conn;
+        $stmt = $conn->prepare('SELECT valor FROM configs WHERE nome = :nome LIMIT 1');
+        $stmt->execute([':nome' => (string)$name]);
+        return $stmt->fetchColumn();
+    }
 }
 function addVersion($user): void {
     global $conn;

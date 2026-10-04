@@ -13,6 +13,7 @@ define('NOME_SERVER_DB', getenv('DB_HOST') ?: '127.0.0.1');
 define('USUARIO_DB', getenv('DB_USER') ?: '');
 // Intentionally no password constant. Secrets must never live in source code.
 define('SENHA_DB', '');
+require_once __DIR__ . '/render_helpers.php';
 
 $sid = $_SESSION['logado'] ?? '';
 $acao = $_GET['acao'] ?? '';

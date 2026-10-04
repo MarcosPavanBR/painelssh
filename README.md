@@ -64,4 +64,4 @@ A instalação automatizada foi escrita para Ubuntu 24.04 e não deve ser tratad
 git clone https://github.com/MarcosPavanBR/painelssh.git && cd painelssh && sudo bash ops/install.sh
 ```
 
-O comando exige acesso de leitura ao repositório. Antes de expor o painel, configure HTTPS, altere `FORCE_SECURE_COOKIES` para `1` e valide os fluxos em staging. O módulo `gestorssh/appss/` foi modernizado estaticamente, mas deve ser validado em staging antes de produção.
+O comando exige acesso de leitura ao repositório. Antes de expor o painel, configure HTTPS, altere `FORCE_SECURE_COOKIES` para `1` e valide os fluxos em staging. O instalador foi reproduzido em Ubuntu 24.04 com Apache, MariaDB, PHP 8.3 e Composer; a causa de um HTTP 500 no `appss` foi corrigida. Consulte o [registro da reprodução](docs/auditoria/reproducao-instalacao-2026-10-04.md). Ainda devem ser feitos testes funcionais com dados reais antes de produção.
